@@ -13,7 +13,7 @@ Sudden Flash Card Event is a language study tool that interrupts whatever the us
 
 
 ## License
-For open source projects, say how it is licensed.
+
 
 ## Project status
 
