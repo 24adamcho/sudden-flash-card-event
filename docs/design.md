@@ -19,11 +19,11 @@ After opening the startup script (either by user or by os boot task), a desktop 
 
 ##### Desktop App
 The desktop app is used to interact with the clock daemon in a user-friendly way. Some of the interractions it can perform are:
-    -Stop the whole program
-    -Refresh the flash card pack list
-    -Update the daemon with a new flash card pack file
-    -Open file directory to configuration files
-    -Snooze the daemon for a period of time
+- Stop the whole program
+- Refresh the flash card pack list
+- Update the daemon with a new flash card pack file
+- Open file directory to configuration files
+- Snooze the daemon for a period of time
 
 ##### Clock Daemon
 ```mermaid
