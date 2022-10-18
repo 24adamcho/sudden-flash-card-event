@@ -43,19 +43,20 @@ The clock daemon is a subthread that opens a popup whenever an internal timer tr
 
 ##### Popup
 ```mermaid
-flowchart TB
-    clock((Clock))
-    pool[\Flash card pool/]
-    
+flowchart LR
     subgraph Daemon
-        clock((Clock)) --> |Timer triggered & reset| Popup
-        pool[\Flash card pool/] --> Popup
+        clock((Clock))
+        pool[\Flash card pool/]
     end
+
     subgraph Popup
-        Success? --> |Increase timer| clock
         Success? --> |Increment pool| pool
-        Fail? --> clock
+        Fail? --> |loop back| clock
+        Success? --> |Increase timer| clock
     end
+
+    clock --> |Timer triggered & reset| Popup
+    pool --> |Question cards| Popup
 ```
 
 The popup is a window that is opened by the clock daemon. Upon being opened, it will choose (randomly or from an incremental pool as the user learns, setting changed by desktop app) from the loaded flash card pack file. Then, it will quiz the user on a sequence of those, requiring the user to properly match each answer. Answering all questions will close the popup and start the clock daemon timer. Successfully answering will increase the timer, as well as increase the pool of possible cards (depending on setting). Failure incurrs no penalties and merely starts the clock daemon once more. Clock is reset to the default time every round of questions.
