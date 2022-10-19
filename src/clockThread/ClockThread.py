@@ -1,21 +1,43 @@
 import threading
-import time
+import json
+
 
 class ClockThread(threading.Thread):
-    stats = {}
-    data = {}
-    period = 0 #time between each popup
+    __stats__ = {}
+    __cards__ = {}
+    __period__ = 5 #default seconds between each popup
+    __stopflag__ = False
+    threadEvent = threading.Event()
 
     def __init__(self, cardsFile, configFile):
-        print("Initializing Clock daemon...")
+        print("Loading configs and data")
+
+        #check if files exist. if not, throw an error popup and terminate operation
+
+
+        #load config file for period and other settings
+        #load cards file into data
+        #load stats file
+        print("Configs loaded")
+
+        threading.Thread.__init__(self)
+        print("Thread loaded")
 
     def run(self):
-        print("Daemon started")
+        print("Beginniing thread operation")
+        while not self.__stopflag__:
+            self.threadEvent.wait(timeout=self.__period__)
+            if not self.__stopflag__:
+                print("Popup time!")
+                self.threadEvent.clear()
+        print("ClockThread.run terminated")
 
     def stop(self):
-        print("Daemon stopped")
+        self.__stopflag__ = True
+        self.threadEvent.set()
+
+        print("Thread operation stopped")
 
     def getstats(self):
         return self.stats
-
     
