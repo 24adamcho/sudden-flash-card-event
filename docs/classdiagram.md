@@ -27,28 +27,20 @@ direction LR
     Window <|-- Logic
     Popup <|-- Logic
 ```
-##### Clock daemon
+##### Clock thread
 ```mermaid
 classDiagram
 direction LR
-    class Clock{
-        +period
-        +sleepme(seconds)
-    }
-    class ClockDaemon{
+    class ClockThread{
+        +Cards
+        +Stats
         -Popup
+        +period
         +init(String cardsFile)
         +start()
         +getstats() stats
         +stop()
     }
-    class Data{
-        +Cards
-        +Stats
-    }
-
-    ClockDaemon <|-- Data
-    ClockDaemon <|-- Clock
 ```
 
 ##### Desktop app
@@ -68,7 +60,7 @@ direction LR
 ### Full diagram
 ```mermaid
 classDiagram
-direction TB
+direction LR
     class Logic{
         -cards
         +init(cards)
@@ -88,20 +80,15 @@ direction TB
         +trigger() stats
     }
 
-    class Clock{
-        +period
-        +sleepme(seconds)
-    }
-    class ClockDaemon{
+    class ClockThread{
+        +Cards
+        +Stats
         -Popup
+        +period
         +init(String cardsFile)
         +start()
         +getstats() stats
         +stop()
-    }
-    class Data{
-        +Cards
-        +Stats
     }
 
     class TrayMenu{
@@ -116,9 +103,6 @@ direction TB
     Window <|-- Logic
     Popup <|-- Logic
 
-    ClockDaemon <|-- Data
-    ClockDaemon <|-- Clock
-
-    ClockDaemon <|-- Popup
-    TrayMenu <|-- ClockDaemon
+    ClockThread<|-- Popup
+    TrayMenu <|-- ClockThread
 ```
