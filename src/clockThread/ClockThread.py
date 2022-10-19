@@ -1,23 +1,34 @@
+import sys
 import threading
 import json
-
+import os.path
 
 class ClockThread(threading.Thread):
     __stats__ = {}
     __cards__ = {}
+    __config__ = {}
     __period__ = 5 #default seconds between each popup
     __stopflag__ = False
     threadEvent = threading.Event()
 
-    def __init__(self, cardsFile, configFile):
+    def __init__(self, configFile):
         print("Loading configs and data")
 
-        #check if files exist. if not, throw an error popup and terminate operation
+        def loadJson(file, dict):
+            #check if files exist. if not, throw an error popup and terminate operation
+            if os.path.exists(file):
+                f = open(file)
+                dict = json.loads(f)
+                f.close()
+            else:
+                sys.exit(f"Error in loading ${file}")
 
-
-        #load config file for period and other settings
-        #load cards file into data
+        #load config file for other file locations
+        loadJson("../config/cfg.json", self.__config__)
         #load stats file
+        loadJson(self.__config__["statsFile"], self.__stats__)
+        #load cards file into data
+        loadJson(self.__config__["cardFile"], self.__cards__)
         print("Configs loaded")
 
         threading.Thread.__init__(self)

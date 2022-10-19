@@ -50,7 +50,6 @@ direction LR
     class TrayMenu{
         -ClockDaemon
         +quit()
-        +refreshFileList()
         +changeDaemonCards()
         +openFileDirectory()
         +snooze()
