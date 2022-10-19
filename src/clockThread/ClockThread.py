@@ -4,6 +4,7 @@ import time
 class ClockThread(threading.Thread):
     stats = {}
     data = {}
+    period = 0 #time between each popup
 
     def __init__(self, cardsFile, configFile):
         print("Initializing Clock daemon...")
