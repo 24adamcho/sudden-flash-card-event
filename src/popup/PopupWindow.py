@@ -26,13 +26,13 @@ class PopupWindow(tk.Tk):
         
         print("Window initialized")
     
-    def onNewlineEvent(self):
+    def onNewlineEvent(self, event):
         print("Entry submitted")
 
     def onClose(self):
         print("Window closed!")
         self.destroy()
 
-if __name__ == "main":
+if __name__ == "__main__":
     app = PopupWindow("", "")
     app.mainloop()
