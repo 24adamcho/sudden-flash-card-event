@@ -3,8 +3,13 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 
+import QuizLogic
+
 class PopupWindow(tk.Tk):
-    def __init__(self, cards, options = {"windowSize":"300x300"}):
+    __quizCompleted__ = False
+
+    def __init__(self, cards, quizlogic, options = {"windowSize":"300x300"}):
+        print("Initializing window...")
         super().__init__()
 
         self.title("SUDDEN FLASH CARD EVENT")
@@ -20,6 +25,7 @@ class PopupWindow(tk.Tk):
         self.bind('<Return>', onNewlineEvent)
 
         def onClose(event):
+            print("Window closed!")
             self.destroy()
         self.protocol("WM_DELETE_WINDOW", onClose)
 
@@ -27,3 +33,8 @@ class PopupWindow(tk.Tk):
         self.lbl_card.pack()
         self.ent_guess.pack()
         self.lbl_answer.pack()
+        
+        print("Window initialized")
+
+if __name__ == "main":
+    PopupWindow("", "").mainloop()
