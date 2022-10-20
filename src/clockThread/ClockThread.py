@@ -14,7 +14,7 @@ class ClockThread(threading.Thread):
     def __init__(self, configFile):
         print("Loading configs and data")
 
-        def loadJson(file, dict):
+        def loadJson(file):
             #check if files exist. if not, throw an error popup and terminate operation
             if os.path.exists(file):
                 f = open(file)
@@ -22,13 +22,16 @@ class ClockThread(threading.Thread):
                 f.close()
             else:
                 sys.exit(f"Error in loading ${file}")
+            return dict
 
         #load config file for other file locations
-        loadJson("../config/cfg.json", self.__config__)
+        self.__config__ = loadJson("../config/cfg.json")
         #load stats file
-        loadJson(self.__config__["statsFile"], self.__stats__)
+        self.__stats__ = loadJson(self.__config__["statsFile"])
         #load cards file into data
-        loadJson(self.__config__["cardFile"], self.__cards__)
+        self.__cards__ = loadJson(self.__config__["cardFile"])
+
+        self.__period__ = self.__config__["timerSeconds"]
         print("Configs loaded")
 
         threading.Thread.__init__(self)
