@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
 
+import quizlogic
+
 class PopupWindow(tk.Tk):
     __quizCompleted__ = False
 
@@ -10,6 +12,8 @@ class PopupWindow(tk.Tk):
 
         self.title("SUDDEN FLASH CARD EVENT")
         self.geometry(options["windowSize"]) #TODO add windowSize to cfg.json
+
+        self.__logic__ = quizlogic.QuizLogic()
 
         self.lbl_description = ttk.Label(self, text="You must answer.")
         self.lbl_card = ttk.Label()
