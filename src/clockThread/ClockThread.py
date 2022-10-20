@@ -47,6 +47,14 @@ class ClockThread(threading.Thread):
         self.__stopflag__ = True
         self.threadEvent.set()
 
+        #save stats to file
+        try:
+            f = open(self.__config__["statsFile"], "w")
+            f.write(json.dumps(self.__stats__, indend=4))
+            f.close()
+        except:
+            print("Unable to save stats to file")
+
         print("Thread operation stopped")
 
     def getstats(self):

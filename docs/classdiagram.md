@@ -20,7 +20,8 @@ direction LR
         -Window
         -Logic
         +init(cards)
-        +trigger() stats
+        +trigger()
+        +results()
     }
 
     Popup <|-- Window
@@ -76,7 +77,8 @@ direction LR
         -Window
         -Logic
         +init(cards)
-        +trigger() stats
+        +trigger()
+        +results()
     }
 
     class ClockThread{
