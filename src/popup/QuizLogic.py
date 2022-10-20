@@ -10,16 +10,11 @@ class QuizLogic(object):
 
     def guess(self, card):
         if card == self.__cards__.keys()[self.__guessIndex__]:
-            return True
+            output = True
         else:
-            return False
-
-    def incrementGuess(self):
-        self.__guessIndex__+= 1
-
-    def flushValues(self):
-        self.__guessIndex__ = 0
-        self.__score__ = 0
+            output = False
+        self.__guessIndex__ += 1
+        return output
 
     def results(self):
         return self.__score__
