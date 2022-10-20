@@ -9,7 +9,7 @@ class QuizLogic(object):
         self.__score__ = 0
 
     def guess(self, card):
-        if card == self.__cards__.keys()[self.__guessIndex__]:
+        if card == self.peekAnswer():
             output = True
         else:
             output = False
@@ -18,3 +18,8 @@ class QuizLogic(object):
 
     def results(self):
         return self.__score__
+
+    def peekAnswer(self):
+        return self.__cards__.values()[self.__guessIndex__]
+    def peekCard(self):
+        return self.__cards__.keys()[self.__guessIndex__]
