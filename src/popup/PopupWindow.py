@@ -1,9 +1,5 @@
-from email import message
 import tkinter as tk
 from tkinter import ttk
-from tkinter import messagebox
-
-import QuizLogic
 
 class PopupWindow(tk.Tk):
     __quizCompleted__ = False
@@ -16,18 +12,12 @@ class PopupWindow(tk.Tk):
         self.geometry(options["windowSize"]) #TODO add windowSize to cfg.json
 
         self.lbl_description = ttk.Label(self, text="You must answer.")
-        self.lbl_card = tk.Label()
-        self.ent_guess = tk.Entry()
-        self.lbl_answer = tk.Label()
+        self.lbl_card = ttk.Label()
+        self.ent_guess = ttk.Entry()
+        self.lbl_answer = ttk.Label()
         
-        def onNewlineEvent(event):
-            print("Entry submitted")
-        self.bind('<Return>', onNewlineEvent)
-
-        def onClose(event):
-            print("Window closed!")
-            self.destroy()
-        self.protocol("WM_DELETE_WINDOW", onClose)
+        self.bind('<Return>', self.onNewlineEvent)
+        self.protocol("WM_DELETE_WINDOW", self.onClose)
 
         self.lbl_description.pack()
         self.lbl_card.pack()
@@ -35,6 +25,14 @@ class PopupWindow(tk.Tk):
         self.lbl_answer.pack()
         
         print("Window initialized")
+    
+    def onNewlineEvent(self):
+        print("Entry submitted")
+
+    def onClose(self):
+        print("Window closed!")
+        self.destroy()
 
 if __name__ == "main":
-    PopupWindow("", "").mainloop()
+    app = PopupWindow("", "")
+    app.mainloop()
