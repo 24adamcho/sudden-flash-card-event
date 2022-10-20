@@ -19,6 +19,7 @@ class QuizLogic(object):
             output = True
         else:
             output = False
+        print(f"Score: {self.__score__}")
         return output    
 
     # next Card increments the card counter
@@ -38,3 +39,6 @@ class QuizLogic(object):
         return list(self.__cards__.values())[self.__guessIndex__]
     def peekCard(self):
         return list(self.__cards__.keys())[self.__guessIndex__]
+
+    def progressStr(self):
+        return str(self.__guessIndex__ + 1) + "/" + str(len(self.__cards__))

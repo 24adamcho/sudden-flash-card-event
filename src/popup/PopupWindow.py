@@ -1,21 +1,21 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import END, ttk
 
 import quizlogic
 
 class PopupWindowFrame(tk.Frame):
-    def __init__(self, parent, card, answer):
+    def __init__(self, parent, card, count, splash):
         print("Frame")
         tk.Frame.__init__(self, parent)
         self.parent = parent
-        self.__card__ = card
-        self.__answer__ = answer
-        self.widgets()
+        self.__count__ = count
+        self.__splash__ = splash
+        self.widgets(card)
         
-    def widgets(self):
+    def widgets(self, card):
         print("frame widgets")
-        self.lbl_description = ttk.Label(self, text="You must answer.")
-        self.lbl_card = ttk.Label(self, text = self.__card__)
+        self.lbl_description = ttk.Label(self, text=f"{self.__splash__} (Progress: {self.__count__})(Score:0)")
+        self.lbl_card = ttk.Label(self, text = card)
         self.ent_guess = ttk.Entry(self)
         self.lbl_answer = tk.Label(self) #TK ALLOWS FG/BG CONTROL, NOT TTK
 
@@ -28,60 +28,79 @@ class PopupWindowFrame(tk.Frame):
     def getEntryText(self):
         return self.ent_guess.get()
 
-    def correct(self):
+    def correct(self, score):
         self.lbl_answer.config(text="Correct!")
         self.lbl_answer.config(fg="green")
-    def incorrect(self):
-        self.lbl_answer.config(text=f"Wrong! The answer was [ {self.__answer__} ].")
+        self.lbl_description.config(text=f"{self.__splash__} (Progress:{self.__count__})(Score:{score})")
+    def incorrect(self, answer):
+        self.lbl_answer.config(text=f"Wrong! The answer was [ {answer} ].")
         self.lbl_answer.config(fg="red")
+
+    def nextQuestion(self, card, count, score):
+        self.__count__ = count
+        self.lbl_description.config(text=f"{self.__splash__} (Progress:{self.__count__})(Score:{score})")
+        self.lbl_answer.config(text="")
+        self.lbl_card.config(text=card)
+        self.ent_guess.delete(0, END)
 
 class PopupWindow(tk.Tk):
     __quizCompleted__ = False
 
-    def __init__(self, cards, ql, options = {"windowSize":"350x100"}):
+    def __init__(self, ql, splash, options = {"windowSize":"350x100"}):
         print("Initializing window...")
         super().__init__()
 
         self.title("SUDDEN FLASH CARD EVENT")
         self.geometry(options["windowSize"]) #TODO add windowSize to cfg.json
 
-        self.__logic__ = quizlogic.QuizLogic(cards)
+        self.__logic__ = ql
         
-        self.bind('<Return>', self.onNewlineEvent)
-        self.protocol("WM_DELETE_WINDOW", self.onClose)
+        self.bind('<Return>', self.__onNewlineEvent__)
+        self.protocol("WM_DELETE_WINDOW", self.__onClose__)
 
-        self.frames = list()
-        for card, answer in cards.items():
-            self.frames.append(PopupWindowFrame(self, card, answer))
-
-        self.frame = PopupWindowFrame(self, "test", "water")
-
+        self.frame = PopupWindowFrame(
+            self, 
+            self.__logic__.peekCard(),
+            self.__logic__.progressStr(),
+            splash
+            )
         self.frame.pack()
         
         print("Window initialized")
     
-    def onNewlineEvent(self, event):
+    __flipflop__ = True
+    def __onNewlineEvent__(self, event):
         print("Entry submitted")
-        if self.__logic__.guess(self.frame.getEntryText()):
-            self.frame.correct()
-        else:
-            self.frame.incorrect()
-        
-        if self.__logic__.nextCard():
-            pass #change to next frame
-        else:
-            self.onClose() #close window and return score
+        if self.__flipflop__: # test answer
+            if self.__logic__.guess(self.frame.getEntryText()):
+                self.frame.correct(self.__logic__.results())
+            else:
+                self.frame.incorrect(self.__logic__.peekAnswer())
+        else: # next question
+            if self.__logic__.nextCard():
+                self.frame.nextQuestion(
+                    self.__logic__.peekCard(),
+                    self.__logic__.progressStr(),
+                    self.__logic__.results()
+                    )
+            else: #no cards available?
+                self.__quizCompleted__ = True
+                self.__onClose__() #close window and return score
+        self.__flipflop__ = not self.__flipflop__
 
-    def onClose(self):
+    def __onClose__(self):
         print("Window closed!")
         self.destroy()
 
 if __name__ == "__main__":
     cards = {
         "test": "answer",
-        "mock": "dancer"
+        "mock": "dancer",
+        "hole": "water",
+        "hell": "water",
+        "high": "water"
     }
     logic = quizlogic.QuizLogic(cards)
-    app = PopupWindow(cards, logic)
+    app = PopupWindow(logic, "You must answer.")
     app.mainloop()
     print("loop exited")
