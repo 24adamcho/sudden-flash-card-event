@@ -1,7 +1,7 @@
 import random
 import threading
 
-from popup import popup
+from popup.Popup import Popup
 
 class ClockThread(threading.Thread):
     __stats__ = {}
@@ -42,15 +42,15 @@ class ClockThread(threading.Thread):
                     k = random.choice(adaptedpool)
                     if self.__config__["randomCardInversion"]: #invert if config toggled
                         if random.getrandbits(1):
-                            pool.append(k)
+                            pool.append((k[0], k[1]))
                         else:
                             pool.append((k[1], k[0])) #invert tuple access
                     else:
-                        pool.append(k)
+                        pool.append((k[0], k[1]))
                 random.shuffle(pool)
 
                 #popup
-                p = popup.Popup(pool, "splash", self.__config__)
+                p = Popup(pool, "splash", self.__config__)
                 p.trigger()
                 #thread continues after p terminates
                 results = p.results()
