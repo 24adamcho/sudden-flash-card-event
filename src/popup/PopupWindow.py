@@ -132,7 +132,7 @@ if __name__ == "__main__":
         "hell": "water",
         "high": "water"
     }
-    logic = quizlogic.QuizLogic(cards)
-    app = PopupWindow(logic, "You must answer.")
-    app.mainloop()
+    #logic = quizlogic.QuizLogic(cards)
+    #app = PopupWindow(logic, "You must answer.")
+    #app.mainloop()
     print("loop exited")
