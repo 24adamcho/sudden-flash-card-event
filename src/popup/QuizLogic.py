@@ -42,3 +42,6 @@ class QuizLogic(object):
 
     def progressStr(self):
         return str(self.__guessIndex__ + 1) + "/" + str(len(self.__cards__))
+
+    def perfect(self):
+        return self.__score__ == len(self.__cards__)

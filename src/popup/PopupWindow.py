@@ -1,3 +1,5 @@
+from datetime import datetime
+from datetime import timedelta
 import tkinter as tk
 from tkinter import END, ttk
 
@@ -10,19 +12,21 @@ class PopupWindowFrame(tk.Frame):
         self.parent = parent
         self.__count__ = count
         self.__splash__ = splash
-        self.widgets(card)
+        self.__widgets__(card)
         
-    def widgets(self, card):
+    def __widgets__(self, card):
         print("frame widgets")
         self.lbl_description = ttk.Label(self, text=f"{self.__splash__} (Progress: {self.__count__})(Score:0)")
         self.lbl_card = ttk.Label(self, text = card)
         self.ent_guess = ttk.Entry(self)
         self.lbl_answer = tk.Label(self) #TK ALLOWS FG/BG CONTROL, NOT TTK
+        self.lbl_timer = ttk.Label(self)
 
         self.lbl_description.pack()
         self.lbl_card.pack()
         self.ent_guess.pack()
         self.lbl_answer.pack()
+        self.lbl_timer.pack()
         print("frame widgets packed")
 
     def getEntryText(self):
@@ -42,21 +46,29 @@ class PopupWindowFrame(tk.Frame):
         self.lbl_answer.config(text="")
         self.lbl_card.config(text=card)
         self.ent_guess.delete(0, END)
+    
+    def updateTimer(self, time):
+        self.lbl_timer.config(text=f"Time remaining: {time}")
 
 class PopupWindow(tk.Tk):
     __quizCompleted__ = False
 
-    def __init__(self, ql, splash, options = {"windowSize":"350x100"}):
+    def __init__(self, ql, splash, options = {"windowSize": "350x100", "timer": 300}):
         print("Initializing window...")
         super().__init__()
 
         self.title("SUDDEN FLASH CARD EVENT")
         self.geometry(options["windowSize"]) #TODO add windowSize to cfg.json
+        self.attributes('-topmost',True)
+        self.resizable(False, False)
 
         self.__logic__ = ql
+        self.__time__ = options["timer"]
         
         self.bind('<Return>', self.__onNewlineEvent__)
         self.protocol("WM_DELETE_WINDOW", self.__onClose__)
+        self.__top__ = self.winfo_toplevel()
+        self.__top__.bind("<Unmap>", self.__onUnmap__)
 
         self.frame = PopupWindowFrame(
             self, 
@@ -65,7 +77,7 @@ class PopupWindow(tk.Tk):
             splash
             )
         self.frame.pack()
-        
+        self.timerClock()
         print("Window initialized")
     
     __flipflop__ = True
@@ -88,9 +100,26 @@ class PopupWindow(tk.Tk):
                 self.__onClose__() #close window and return score
         self.__flipflop__ = not self.__flipflop__
 
+    closeme = False
     def __onClose__(self):
+        if self.__quizCompleted__: 
+            self.noSeriouslyClose()
+        else:
+            pass
+    def noSeriouslyClose(self):
         print("Window closed!")
+        closeme = True
         self.destroy()
+
+    def __onUnmap__(self, event):
+        self.__top__.wm_deiconify()
+
+    def timerClock(self):
+        m, s = divmod(self.__time__, 60)
+        h, m = divmod(m, 60)
+        self.frame.updateTimer(f"{m:02d}:{s:02d}")
+        self.after(1000, self.timerClock)
+        self.__time__ -= 1
 
 if __name__ == "__main__":
     cards = {
