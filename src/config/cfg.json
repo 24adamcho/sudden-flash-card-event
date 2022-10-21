@@ -3,10 +3,10 @@
     "cardFile": "C:/Users/Adam/Desktop/Scripts/Python/sudden-flash-card-event/src/config/cards/default.json",
     "adaptiveCardPool": true,
     "timerSeconds": 300,
-    "adaptiveTimer": true,
     "popupQuestionCount": 5,
     "windowSize": "350x100",
     "popupTimer": 300,
+    "adaptiveTimer": true,
     "adaptiveTimerBonus": 300,
     "randomCardInversion": true,
     "snoozeTime": 300
