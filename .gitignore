@@ -1,5 +1,4 @@
-src/popup/__pycache__/*
-src/desktop/__pycache__/*
-src/clockThread/__pycache__/*
-src/clockThread/__pycache__/clockthread.cpython-310.pyc
-src/desktop/__pycache__/traymenu.cpython-310.pyc
+src/popup/__pycache__
+src/desktop/__pycache__
+src/clockThread/__pycache__
+.vscode

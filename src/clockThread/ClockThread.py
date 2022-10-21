@@ -35,18 +35,28 @@ class ClockThread(threading.Thread):
                     cardMaxCount = self.__stats__["adaptiveCardPoolSize"]
                 else:
                     cardMaxCount = len(self.__cards__)
-
+                
                 adaptedpool = list(self.__cards__.items())[:cardMaxCount] ##subset of cards below cardMaxCount
-                pool = []
-                for i in range(self.__config__["popupQuestionCount"]): #select a few random cards
-                    k = random.choice(adaptedpool)
+
+                pool = random.choices(adaptedpool, k=self.__config__["popupQuestionCount"])
+                for i in range(len(pool)):
                     if self.__config__["randomCardInversion"]: #invert if config toggled
                         if random.getrandbits(1):
-                            pool.append((k[0], k[1]))
+                            pool[i] = (pool[i][0], pool[i][1])
                         else:
-                            pool.append((k[1], k[0])) #invert tuple access
+                            pool[i] = (pool[i][1], pool[i][0]) #invert tuple access
                     else:
-                        pool.append((k[0], k[1]))
+                        pool[i] = (pool[i][0], pool[i][1])
+
+                #for i in range(self.__config__["popupQuestionCount"]): #select a few random cards
+                #    k = random.choice(adaptedpool)
+                #    if self.__config__["randomCardInversion"]: #invert if config toggled
+                #        if random.getrandbits(1):
+                #            pool.append((k[0], k[1]))
+                #        else:
+                #            pool.append((k[1], k[0])) #invert tuple access
+                #    else:
+                #        pool.append((k[0], k[1]))
                 random.shuffle(pool)
 
                 #popup
