@@ -77,18 +77,20 @@ class PopupWindow(tk.Tk):
             splash
             )
         self.frame.pack()
-        self.timerClock()
+        self.__timerClock__()
         print("Window initialized")
     
     __flipflop__ = True
     def __onNewlineEvent__(self, event):
         print("Entry submitted")
         if self.__flipflop__: # test answer
+            self.__pauseTimer__ = True
             if self.__logic__.guess(self.frame.getEntryText()):
                 self.frame.correct(self.__logic__.results())
             else:
                 self.frame.incorrect(self.__logic__.peekAnswer())
         else: # next question
+            self.__pauseTimer__ = False
             if self.__logic__.nextCard():
                 self.frame.nextQuestion(
                     self.__logic__.peekCard(),
@@ -97,29 +99,30 @@ class PopupWindow(tk.Tk):
                     )
             else: #no cards available?
                 self.__quizCompleted__ = True
-                self.__onClose__() #close window and return score
+                self.noSeriouslyClose() #close window and return score
         self.__flipflop__ = not self.__flipflop__
 
-    closeme = False
     def __onClose__(self):
-        if self.__quizCompleted__: 
-            self.noSeriouslyClose()
-        else:
-            pass
+        pass
     def noSeriouslyClose(self):
         print("Window closed!")
-        closeme = True
         self.destroy()
 
     def __onUnmap__(self, event):
         self.__top__.wm_deiconify()
 
-    def timerClock(self):
-        m, s = divmod(self.__time__, 60)
-        h, m = divmod(m, 60)
-        self.frame.updateTimer(f"{m:02d}:{s:02d}")
-        self.after(1000, self.timerClock)
-        self.__time__ -= 1
+    __pauseTimer__ = False
+    def __timerClock__(self):
+        if not self.__pauseTimer__:
+            m, s = divmod(self.__time__, 60)
+            h, m = divmod(m, 60)
+            self.frame.updateTimer(f"{m:02d}:{s:02d}")
+            
+            self.__time__ -= 1
+            if self.__time__ + 1 < 0:
+                self.noSeriouslyClose()
+
+        self.after(1000, self.__timerClock__)
 
 if __name__ == "__main__":
     cards = {
