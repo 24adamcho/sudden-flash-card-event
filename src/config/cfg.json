@@ -1,6 +1,6 @@
 {
-    "statsFile": "../config/stats.json",
-    "cardFile": "../config/cards/default.json",
+    "statsFile": "config/stats.json",
+    "cardFile": "config/cards/default.json",
     "adaptiveCardPool": true,
     "popupQuestionCount": 5,
     "adaptiveTimer": false,

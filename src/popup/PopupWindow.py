@@ -3,7 +3,7 @@ from datetime import timedelta
 import tkinter as tk
 from tkinter import END, ttk
 
-import quizlogic
+from popup.quizlogic import QuizLogic
 
 class PopupWindowFrame(tk.Frame):
     def __init__(self, parent, card, count, splash):

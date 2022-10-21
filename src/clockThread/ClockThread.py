@@ -1,6 +1,7 @@
 import random
 import threading
-from popup.popup import Popup
+
+from popup import popup
 
 class ClockThread(threading.Thread):
     __stats__ = {}
@@ -49,7 +50,7 @@ class ClockThread(threading.Thread):
                 random.shuffle(pool)
 
                 #popup
-                p = Popup(pool, "splash", self.__config__)
+                p = popup.Popup(pool, "splash", self.__config__)
                 p.trigger()
                 #thread continues after p terminates
                 results = p.results()

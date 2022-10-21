@@ -3,7 +3,7 @@ import os
 import sys
 from infi.systray import SysTrayIcon
 
-import clockThread.clockthread
+from clockThread import clockthread
 
 class TrayMenu(object):
     def __init__(self, configFile):
@@ -25,6 +25,7 @@ class TrayMenu(object):
         self.systray.start()
 
     def __loadClockThread__(self):
+        print("Loading config files...")
         def loadJson(file):
             #check if files exist. if not, throw an error popup and terminate operation
             if os.path.exists(file):
@@ -45,7 +46,7 @@ class TrayMenu(object):
         period = self.__config__["timerSeconds"]
         print("Configs loaded")
 
-        return clockThread.clockthread.ClockThread(config, stats, cards, period)
+        return clockthread.ClockThread(config, stats, cards, period)
 
     def refreshClock(self):
         self.__clockThread__.stop()
