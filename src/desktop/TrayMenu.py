@@ -7,12 +7,14 @@ from clockThread import clockthread
 
 class TrayMenu(object):
     def __init__(self, configFile):
+        print("opening system tray")
         self.__configFile__ = configFile
         self.__clockThread__ = self.__loadClockThread__()
         
         menu = (
             ("Refresh card pack", None, self.refreshClock),
-            ("Snooze", None, self.snooze)
+            #("Snooze", None, self.snooze),
+            ("Time until next surprise:", None, lambda self:{})
         )
         self.systray = SysTrayIcon(
             None, 
@@ -23,6 +25,10 @@ class TrayMenu(object):
 
         self.__clockThread__.start()
         self.systray.start()
+        print("tray opened.")
+        self.__trayTimer__ = True
+        #while self.__trayTimer__:
+        #    self.systray.update(hover_text=)
 
     def __loadClockThread__(self):
         print("Loading config files...")
@@ -49,13 +55,13 @@ class TrayMenu(object):
 
         return clockthread.ClockThread(self.__config__, stats, cards, period)
 
-    def refreshClock(self):
+    def refreshClock(self, systray):
         self.__clockThread__.stop()
         self.__clockThread__ = self.__loadClockThread__()
         self.__clockThread__.start()
         pass
 
-    def snooze(self):
+    def snooze(self, systray):
         self.__clockThread__.snooze(self.__config__["snoozeTime"])
         pass
 

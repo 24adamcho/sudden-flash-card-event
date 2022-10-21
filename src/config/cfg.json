@@ -2,7 +2,7 @@
     "statsFile": "C:/Users/Adam/Desktop/Scripts/Python/sudden-flash-card-event/src/config/stats.json",
     "cardFile": "C:/Users/Adam/Desktop/Scripts/Python/sudden-flash-card-event/src/config/cards/default.json",
     "adaptiveCardPool": true,
-    "timerSeconds": 5,
+    "timerSeconds": 300,
     "adaptiveTimer": false,
     "popupQuestionCount": 5,
     "windowSize": "350x100",
