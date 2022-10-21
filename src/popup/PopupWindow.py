@@ -20,13 +20,13 @@ class PopupWindowFrame(tk.Frame):
         self.lbl_card = ttk.Label(self, text = card)
         self.ent_guess = ttk.Entry(self)
         self.lbl_answer = tk.Label(self) #TK ALLOWS FG/BG CONTROL, NOT TTK
-        self.lbl_timer = ttk.Label(self)
+        #self.lbl_timer = ttk.Label(self)
 
         self.lbl_description.pack()
         self.lbl_card.pack()
         self.ent_guess.pack()
         self.lbl_answer.pack()
-        self.lbl_timer.pack()
+        #self.lbl_timer.pack()
         print("frame widgets packed")
 
     def getEntryText(self):
@@ -47,8 +47,8 @@ class PopupWindowFrame(tk.Frame):
         self.lbl_card.config(text=card)
         self.ent_guess.delete(0, END)
     
-    def updateTimer(self, time):
-        self.lbl_timer.config(text=f"Time remaining: {time}")
+    #def updateTimer(self, time):
+        #self.lbl_timer.config(text=f"Time remaining: {time}")
 
 class PopupWindow(tk.Tk):
     __quizCompleted__ = False
@@ -77,7 +77,7 @@ class PopupWindow(tk.Tk):
             splash
             )
         self.frame.pack()
-        self.__timerClock__()
+        #self.timerClock()
         print("Window initialized")
     
     __flipflop__ = True
@@ -112,17 +112,17 @@ class PopupWindow(tk.Tk):
         self.__top__.wm_deiconify()
 
     __pauseTimer__ = False
-    def __timerClock__(self):
+    def timerClock(self):
         if not self.__pauseTimer__:
             m, s = divmod(self.__time__, 60)
             h, m = divmod(m, 60)
-            self.frame.updateTimer(f"{m:02d}:{s:02d}")
+            #self.frame.updateTimer(f"{m:02d}:{s:02d}")
             
             self.__time__ -= 1
             if self.__time__ + 1 < 0:
                 self.noSeriouslyClose()
 
-        self.after(1000, self.__timerClock__)
+        self.after(1000, self.timerClock)
 
 if __name__ == "__main__":
     cards = {

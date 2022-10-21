@@ -26,9 +26,7 @@ if __name__ == "__main__":
         #"hell": "water",
         #"high": "water"
     }
-    app = Popup(cards, "You must answer.")
-    app.trigger()
+    Popup(cards, "You must answer.").trigger()
     pass
-    bapp = Popup(cards, "dgjseztae")
-    bapp.trigger()
+    Popup(cards, "dgjseztae").trigger()
     pass
