@@ -5,10 +5,10 @@ import popup.quizlogic
 import popup.popupwindow
 
 class Popup(object):
-    def __init__(self, cards, splash, options = {"windowSize": "350x100", "timer": 60}):
+    def __init__(self, cards, splash, options = {"windowSize": "350x100", "popupTimer": 60}):
         self.__cards__ = cards
         self.__logic__ = popup.quizlogic.QuizLogic(cards)
-        self.__timer__ = options["timer"]
+        self.__timer__ = options["popupTimer"]
         self.__app__ = popup.popupwindow.PopupWindow(self.__logic__, splash, options)
 
     def trigger(self):

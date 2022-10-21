@@ -1,11 +1,13 @@
 {
-    "statsFile": "config/stats.json",
-    "cardFile": "config/cards/default.json",
+    "statsFile": "C:/Users/Adam/Desktop/Scripts/Python/sudden-flash-card-event/src/config/stats.json",
+    "cardFile": "C:/Users/Adam/Desktop/Scripts/Python/sudden-flash-card-event/src/config/cards/default.json",
     "adaptiveCardPool": true,
-    "popupQuestionCount": 5,
+    "timerSeconds": 5,
     "adaptiveTimer": false,
-    "timerSeconds": 10,
-    "adaptiveTimerBonus": 30,
+    "popupQuestionCount": 5,
+    "windowSize": "350x100",
+    "popupTimer": 300,
+    "adaptiveTimerBonus": 300,
     "randomCardInversion": false,
     "snoozeTime": 300
 }

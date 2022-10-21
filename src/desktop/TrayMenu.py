@@ -7,7 +7,7 @@ from clockThread import clockthread
 
 class TrayMenu(object):
     def __init__(self, configFile):
-        self.__config__ = configFile
+        self.__configFile__ = configFile
         self.__clockThread__ = self.__loadClockThread__()
         
         menu = (
@@ -30,14 +30,15 @@ class TrayMenu(object):
             #check if files exist. if not, throw an error popup and terminate operation
             if os.path.exists(file):
                 f = open(file)
-                dict = json.loads(f)
+                dict = json.loads(f.read())
+                print(json.dumps(dict, indent=4))
                 f.close()
             else:
                 sys.exit(f"Error in loading ${file}")
             return dict
 
         #load config file for other file locations
-        config = loadJson("../config/cfg.json")
+        self.__config__ = loadJson(self.__configFile__)
         #load stats file
         stats = loadJson(self.__config__["statsFile"])
         #load cards file into data
@@ -46,7 +47,7 @@ class TrayMenu(object):
         period = self.__config__["timerSeconds"]
         print("Configs loaded")
 
-        return clockthread.ClockThread(config, stats, cards, period)
+        return clockthread.ClockThread(self.__config__, stats, cards, period)
 
     def refreshClock(self):
         self.__clockThread__.stop()

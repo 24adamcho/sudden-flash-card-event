@@ -53,7 +53,7 @@ class PopupWindowFrame(tk.Frame):
 class PopupWindow(tk.Tk):
     __quizCompleted__ = False
 
-    def __init__(self, ql, splash, options = {"windowSize": "350x100", "timer": 300}):
+    def __init__(self, ql, splash, options = {"windowSize": "350x100", "popupTimer": 300}):
         print("Initializing window...")
         super().__init__()
 
@@ -63,7 +63,7 @@ class PopupWindow(tk.Tk):
         self.resizable(False, False)
 
         self.__logic__ = ql
-        self.__time__ = options["timer"]
+        self.__time__ = options["popupTimer"]
         
         self.bind('<Return>', self.__onNewlineEvent__)
         self.protocol("WM_DELETE_WINDOW", self.__onClose__)
