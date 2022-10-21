@@ -1,1 +1,3 @@
 src/popup/__pycache__/*
+src/desktop/__pycache__/*
+src/clockThread/__pycache__/*
