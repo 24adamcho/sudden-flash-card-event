@@ -5,9 +5,9 @@ import quizlogic
 import popupwindow
 
 class Popup(object):
-    def __init__(self, cards, splash, options = {"windowSize": "350x100", "timer": 5}):
+    def __init__(self, cardKeys, cards, splash, options = {"windowSize": "350x100", "timer": 60}):
         self.__cards__ = cards
-        self.__logic__ = quizlogic.QuizLogic(cards)
+        self.__logic__ = quizlogic.QuizLogic(cardKeys, cards)
         self.__timer__ = options["timer"]
         self.__app__ = popupwindow.PopupWindow(self.__logic__, splash, options)
 
@@ -26,7 +26,7 @@ if __name__ == "__main__":
         #"hell": "water",
         #"high": "water"
     }
-    Popup(cards, "You must answer.").trigger()
+    #Popup(cards, "You must answer.").trigger()
     pass
-    Popup(cards, "dgjseztae").trigger()
+    #Popup(cards, "dgjseztae").trigger()
     pass

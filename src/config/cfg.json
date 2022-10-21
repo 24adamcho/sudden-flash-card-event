@@ -5,5 +5,6 @@
     "popupQuestionCount": 5,
     "adaptiveTimer": false,
     "timerSeconds": 10,
+    "adaptiveTimerBonus": 30,
     "randomCardInversion": false
 }
