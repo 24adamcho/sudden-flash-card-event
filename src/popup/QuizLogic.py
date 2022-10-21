@@ -3,11 +3,10 @@
 class QuizLogic(object):
     __cards__ = {}
 
-    def __init__(self, cardKeys, cards):
+    def __init__(self, cards):
         self.__cards__ = cards
         self.__guessIndex__ = 0
         self.__score__ = 0
-        self.__cardKeys__ = cardKeys
 
     # guess the card's answer
     #   returns:
@@ -36,10 +35,10 @@ class QuizLogic(object):
     def results(self):
         return [self.__score__, self.__score__ == len(self.__cards__)]
 
-    def peekAnswer(self):
-        return self.__cards__[self.__cardKeys__[self.__guessIndex__]]
     def peekCard(self):
-        return self.__cardKeys__[self.__guessIndex__]
+        return self.__cards__[self.__guessIndex__][0]
+    def peekAnswer(self):
+        return self.__cards__[self.__guessIndex__][1]
 
     def progressStr(self):
         return str(self.__guessIndex__ + 1) + "/" + str(len(self.__cards__))

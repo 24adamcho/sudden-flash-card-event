@@ -6,5 +6,6 @@
     "adaptiveTimer": false,
     "timerSeconds": 10,
     "adaptiveTimerBonus": 30,
-    "randomCardInversion": false
+    "randomCardInversion": false,
+    "snoozeTime": 300
 }

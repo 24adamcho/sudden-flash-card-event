@@ -45,15 +45,16 @@ class TrayMenu(object):
         period = self.__config__["timerSeconds"]
         print("Configs loaded")
 
-
         return clockThread.clockthread.ClockThread(config, stats, cards, period)
 
     def refreshClock(self):
         self.__clockThread__.stop()
         self.__clockThread__ = self.__loadClockThread__()
+        self.__clockThread__.start()
         pass
 
     def snooze(self):
+        self.__clockThread__.snooze(self.__config__["snoozeTime"])
         pass
 
     def __onQuitCallback__(self, systray):
