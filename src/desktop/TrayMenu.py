@@ -1,9 +1,10 @@
 import json
 import os
 import sys
+import threading
 from infi.systray import SysTrayIcon
 
-from clockThread import clockthread
+from clockThread.ClockThread import ClockThread
 
 class TrayMenu(object):
     def __init__(self, configFile):
@@ -14,7 +15,7 @@ class TrayMenu(object):
         menu = (
             ("Refresh card pack", None, self.refreshClock),
             #("Snooze", None, self.snooze),
-            ("Time until next surprise:", None, lambda self:{})
+            #("Time until next surprise:", None, lambda self:{})
         )
         self.systray = SysTrayIcon(
             None, 
@@ -26,9 +27,20 @@ class TrayMenu(object):
         self.__clockThread__.start()
         self.systray.start()
         print("tray opened.")
-        self.__trayTimer__ = True
-        #while self.__trayTimer__:
-        #    self.systray.update(hover_text=)
+
+        ##timer removed because of logic conflicts + inducing anxiety is better for learning
+    #    self.__t__ = self.__config__["timerSeconds"]
+    #    self.__timerCallback__()
+
+    #def __timerCallback__(self):
+    #    self.__t__ -= 1
+    #    if self.__t__ < 0:
+    #        self.__t__ = self.__config__["timerSeconds"]
+    #    m, s = divmod(self.__t__, 60)
+    #    h, m = divmod(m, 60)
+    #    self.systray.update(hover_text=f"Sudden Flash Card Event in: {m:02d}:{s:02d}")
+    #    timerThread = threading.Timer(1, self.__timerCallback__)
+    #    timerThread.start()
 
     def __loadClockThread__(self):
         print("Loading config files...")
@@ -53,7 +65,7 @@ class TrayMenu(object):
         period = self.__config__["timerSeconds"]
         print("Configs loaded")
 
-        return clockthread.ClockThread(self.__config__, stats, cards, period)
+        return ClockThread(self.__config__, stats, cards, period)
 
     def refreshClock(self, systray):
         self.__clockThread__.stop()
