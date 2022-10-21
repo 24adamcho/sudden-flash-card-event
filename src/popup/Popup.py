@@ -19,14 +19,14 @@ class Popup(object):
         return self.__logic__.results()
 
 if __name__ == "__main__":
-    cards = {
-        "test": "answer",
-        #"mock": "dancer",
-        #"hole": "water",
-        #"hell": "water",
-        #"high": "water"
-    }
-    #Popup(cards, "You must answer.").trigger()
+    cards = [
+        ("test", "answer"),
+        ("mock", "dancer"),
+        ("hole", "water"),
+        ("hell", "water"),
+        ("high", "water")
+    ]
+    Popup(cards, "You must answer.").trigger()
     pass
     #Popup(cards, "dgjseztae").trigger()
     pass

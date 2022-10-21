@@ -86,7 +86,7 @@ class PopupWindow(tk.Tk):
         if self.__flipflop__: # test answer
             self.__pauseTimer__ = True
             if self.__logic__.guess(self.frame.getEntryText()):
-                self.frame.correct(self.__logic__.results())
+                self.frame.correct(self.__logic__.results()[0])
             else:
                 self.frame.incorrect(self.__logic__.peekAnswer())
         else: # next question
@@ -95,7 +95,7 @@ class PopupWindow(tk.Tk):
                 self.frame.nextQuestion(
                     self.__logic__.peekCard(),
                     self.__logic__.progressStr(),
-                    self.__logic__.results()
+                    self.__logic__.results()[0]
                     )
             else: #no cards available?
                 self.__quizCompleted__ = True
