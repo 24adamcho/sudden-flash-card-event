@@ -5,4 +5,4 @@ setup: requirements.txt
 	pip install -r requirements.txt
 
 clean:
-	find . -type d -name __pycache__ -prune -exec rm -rf {} \;
+	find ./src/ -type d -name __pycache__ -exec rm -rf {} \;
