@@ -14,12 +14,14 @@ class PopupWindowFrame(tk.Frame):
         
     def __widgets__(self, card):
         print("frame widgets")
-        self.lbl_description = ttk.Label(self, text=f"{self.__splash__} (Progress: {self.__count__})(Score:0)")
+        self.lbl_splash = ttk.Label(self, text=self.__splash__)
+        self.lbl_description = ttk.Label(self, text=f"(Progress: {self.__count__})(Score:0)")
         self.lbl_card = ttk.Label(self, text = card)
         self.ent_guess = ttk.Entry(self)
         self.lbl_answer = tk.Label(self) #TK ALLOWS FG/BG CONTROL, NOT TTK
         #self.lbl_timer = ttk.Label(self)
 
+        self.lbl_splash.pack()
         self.lbl_description.pack()
         self.lbl_card.pack()
         self.ent_guess.pack()
@@ -35,14 +37,14 @@ class PopupWindowFrame(tk.Frame):
     def correct(self, score):
         self.lbl_answer.config(text="Correct!")
         self.lbl_answer.config(fg="green")
-        self.lbl_description.config(text=f"{self.__splash__} (Progress:{self.__count__})(Score:{score})")
+        self.lbl_description.config(text=f"(Progress:{self.__count__})(Score:{score})")
     def incorrect(self, answer):
         self.lbl_answer.config(text=f"Wrong! The answer was [ {answer} ].")
         self.lbl_answer.config(fg="red")
 
     def nextQuestion(self, card, count, score):
         self.__count__ = count
-        self.lbl_description.config(text=f"{self.__splash__} (Progress:{self.__count__})(Score:{score})")
+        self.lbl_description.config(text=f"(Progress:{self.__count__})(Score:{score})")
         self.lbl_answer.config(text="")
         self.lbl_card.config(text=card)
         self.ent_guess.delete(0, END)

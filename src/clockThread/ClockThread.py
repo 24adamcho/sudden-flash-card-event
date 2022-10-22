@@ -11,13 +11,14 @@ class ClockThread(threading.Thread):
     __stopflag__ = False
     threadEvent = threading.Event()
 
-    def __init__(self, config, stats, cards, periodSeconds):
+    def __init__(self, config, stats, cards, periodSeconds, splashes):
         print("Loading configs and data")
 
         self.__config__ = config
         self.__stats__ = stats
         self.__cards__ = cards
         self.__period__ = periodSeconds
+        self.__splashes__ = splashes
 
         threading.Thread.__init__(self)
         print("Thread loaded")
@@ -59,8 +60,10 @@ class ClockThread(threading.Thread):
                 #        pool.append((k[0], k[1]))
                 random.shuffle(pool)
 
+                splash = random.choice(self.__splashes__)
+
                 #popup
-                p = Popup(pool, "splash", self.__config__)
+                p = Popup(pool, splash, self.__config__)
                 p.trigger()
                 #thread continues after p terminates
                 results = p.results()

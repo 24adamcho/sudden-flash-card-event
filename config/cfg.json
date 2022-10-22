@@ -1,6 +1,7 @@
 {
     "statsFile": "./config/stats.json",
     "cardFile": "./config/cards/default.json",
+    "splashFile": "./config/splashes.json",
     "adaptiveCardPool": true,
     "timerSeconds": 900,
     "popupQuestionCount": 10,

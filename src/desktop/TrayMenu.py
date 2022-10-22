@@ -59,11 +59,13 @@ class TrayMenu(object):
         stats = loadJson(self.__config__["statsFile"])
         #load cards file into data
         cards = loadJson(self.__config__["cardFile"])
+        #load splash file
+        splashes = loadJson(self.__config__["splashFile"])
 
         period = self.__config__["timerSeconds"]
         print("Configs loaded")
 
-        return ClockThread(self.__config__, stats, cards, period)
+        return ClockThread(self.__config__, stats, cards, period, splashes)
 
     def refreshClock(self, systray):
         self.__clockThread__.stop()
@@ -84,6 +86,7 @@ class TrayMenu(object):
             f = open(self.__config__["statsFile"], "w")
             f.write(json.dumps(self.__clockThread__.getstats(), indent=4))
             f.close()
+            print("Stats saved to " + self.__config__["statsFile"])
         except:
             print("Unable to save stats to file")
         pass
