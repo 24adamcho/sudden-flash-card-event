@@ -4,43 +4,78 @@
 ```mermaid
 classDiagram
 direction LR
-    class Logic{
-        -cards
-        +init(cards)
-        +guess(card) bool
-        +results() stats
+    class QuizLogic{
+        -cards : list
+        -guessIndex : int
+        -score : int
+
+        +init(cards : list)
+        +guess(card : str) bool
+        +nextCard() bool
+        +results() list (score : int, fc : bool)
+        +peekCard() str
+        +peekAnswer() str
+        +progressSrt() str
     }
-    class Window{
+    class PopupWindow{
         window stuff
-        +init(Logic)
-        +trigger()
-        +hide()
+        -logic : QuizLogic
+        -top : tk.topLevelWindow
+        -frame : PopupWindowFrame
+
+        +init(ql : QuizLogic, splash : str, options : dict)
+        -onNewlineEvent() //update frame
+        -onClose() //refuse close
+        -onUnmap() //refuse minimize
+        +noSeriouslyClose() //actually close
+    }
+    class PopupWindowFrame{
+        -count : str
+        -splash : str
+
+        -lbl_description
+        -lbl_card
+        -ent_guess
+        -lbl_answer
+        -widgets(card)
+
+        +getEntryText()
+        +correct(score)
+        +incorrect(answer)
+        +nextQuestion(card, count, score)
     }
     class Popup{
-        -Window
-        -Logic
-        +init(cards)
+        -cards : list
+        -logic : QuizLogic
+        -app : PopupWindow
+        +init(cards : list, splash : str, options : dict)
         +trigger()
-        +results()
+        +results() logic.results()
     }
 
-    Popup <|-- Window
-    Window <|-- Logic
-    Popup <|-- Logic
+    Popup <|-- PopupWindow
+    PopupWindow <|-- PopupWindowFrame
+    PopupWindow <|-- QuizLogic
+    Popup <|-- QuizLogic
 ```
 ##### Clock thread
 ```mermaid
 classDiagram
 direction LR
     class ClockThread{
-        +Cards
-        +Stats
-        -Popup
-        +period
+        -stats : dict
+        -cards : dict
+        -config : dict
+        -period : int
+        -stopflag : bool
+        -popup : Popup
+        +threadEvent
+        
         +init(String cardsFile)
-        +start()
-        +getstats() stats
+        +run()
         +stop()
+        +snooze(t) //NOT WORKING, UNUSED
+        +getstats() stats
     }
 ```
 
@@ -49,11 +84,16 @@ direction LR
 classDiagram
 direction LR
     class TrayMenu{
-        -ClockDaemon
+        -clockThread : ClockThread
+        -config : dict
+        -configFile : str
+        -systray : infi.systray.SysTrayIcon
+
+        -loadClockThread() ClockThread
+        -loadJson(file) dict
         +quit()
-        +changeDaemonCards()
-        +openFileDirectory()
-        +snooze()
+        +refreshClock(systray)
+        +snooze(systray) //NOT WORKING, UNUSED
     }
 ```
 
@@ -61,48 +101,88 @@ direction LR
 ```mermaid
 classDiagram
 direction LR
-    class Logic{
-        -cards
-        +init(cards)
-        +guess(card) bool
-        +results() stats
+    class QuizLogic{
+        -cards : list
+        -guessIndex : int
+        -score : int
+
+        +init(cards : list)
+        +guess(card : str) bool
+        +nextCard() bool
+        +results() list (score : int, fc : bool)
+        +peekCard() str
+        +peekAnswer() str
+        +progressSrt() str
     }
-    class Window{
+    class PopupWindow{
         window stuff
-        +init(Logic)
-        +trigger()
-        +hide()
+        -logic : QuizLogic
+        -top : tk.topLevelWindow
+        -frame : PopupWindowFrame
+
+        +init(ql : QuizLogic, splash : str, options : dict)
+        -onNewlineEvent() //update frame
+        -onClose() //refuse close
+        -onUnmap() //refuse minimize
+        +noSeriouslyClose() //actually close
+    }
+    class PopupWindowFrame{
+        -count : str
+        -splash : str
+
+        -lbl_description
+        -lbl_card
+        -ent_guess
+        -lbl_answer
+        -widgets(card)
+
+        +getEntryText()
+        +correct(score)
+        +incorrect(answer)
+        +nextQuestion(card, count, score)
     }
     class Popup{
-        -Window
-        -Logic
-        +init(cards)
+        -cards : list
+        -logic : QuizLogic
+        -app : PopupWindow
+        +init(cards : list, splash : str, options : dict)
         +trigger()
-        +results()
+        +results() logic.results()
     }
 
     class ClockThread{
-        +Cards
-        +Stats
-        -Popup
-        +period
+        -stats : dict
+        -cards : dict
+        -config : dict
+        -period : int
+        -stopflag : bool
+        -popup : Popup
+        +threadEvent
+        
         +init(String cardsFile)
-        +start()
-        +getstats() stats
+        +run()
         +stop()
+        +snooze(t) //NOT WORKING, UNUSED
+        +getstats() stats
     }
 
     class TrayMenu{
+        -clockThread : ClockThread
+        -config : dict
+        -configFile : str
+        -systray : infi.systray.SysTrayIcon
+
+        -loadClockThread() ClockThread
+        -loadJson(file) dict
         +quit()
-        +refreshFileList()
-        +changeDaemonCards()
-        +openFileDirectory()
-        +snooze()
+        +refreshClock(systray)
+        +snooze(systray) //NOT WORKING, UNUSED
     }
 
-    Popup <|-- Window
-    Window <|-- Logic
-    Popup <|-- Logic
+    Popup <|-- PopupWindow
+    PopupWindow <|-- PopupWindowFrame
+    PopupWindow <|-- QuizLogic
+    Popup <|-- QuizLogic
 
     ClockThread<|-- Popup
     TrayMenu <|-- ClockThread
