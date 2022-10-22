@@ -22,12 +22,14 @@ direction LR
         -logic : QuizLogic
         -top : tk.topLevelWindow
         -frame : PopupWindowFrame
+        -windowSize : str
 
         +init(ql : QuizLogic, splash : str, options : dict)
         -onNewlineEvent() //update frame
         -onClose() //refuse close
         -onUnmap() //refuse minimize
         +noSeriouslyClose() //actually close
+        -lockPosition()
     }
     class PopupWindowFrame{
         -count : str
@@ -119,12 +121,14 @@ direction LR
         -logic : QuizLogic
         -top : tk.topLevelWindow
         -frame : PopupWindowFrame
+        -windowSize : str
 
         +init(ql : QuizLogic, splash : str, options : dict)
         -onNewlineEvent() //update frame
         -onClose() //refuse close
         -onUnmap() //refuse minimize
         +noSeriouslyClose() //actually close
+        -lockPosition()
     }
     class PopupWindowFrame{
         -count : str
