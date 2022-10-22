@@ -14,7 +14,7 @@ class QuizLogic(object):
     #              increments score
     #       False - answer was incorrect
     def guess(self, guess):
-        if guess == self.peekAnswer():
+        if guess.strip() == self.peekAnswer():
             self.__score__ += 1
             output = True
         else:
