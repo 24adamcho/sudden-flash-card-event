@@ -1,6 +1,7 @@
 import codecs
 import json
 import sys
+import atexit
 from infi.systray import SysTrayIcon
 
 from clockThread.ClockThread import ClockThread
@@ -23,6 +24,7 @@ class TrayMenu(object):
             on_quit=self.__onQuitCallback__
         )
 
+        atexit.register(self.saveStats)
         self.__clockThread__.start()
         self.systray.start()
         print("tray opened.")
@@ -86,6 +88,7 @@ class TrayMenu(object):
         self.__clockThread__.stop()
         self.__clockThread__.join()
 
+    def saveStats(self):
         #save stats to file
         try:
             f = open(self.__config__["statsFile"], "w")
