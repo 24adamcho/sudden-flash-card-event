@@ -1,7 +1,5 @@
 import json
-import os
 import sys
-import threading
 from infi.systray import SysTrayIcon
 
 from clockThread.ClockThread import ClockThread
@@ -46,12 +44,12 @@ class TrayMenu(object):
         print("Loading config files...")
         def loadJson(file):
             #check if files exist. if not, throw an error popup and terminate operation
-            if os.path.exists(file):
-                f = open(file)
+            try:
+                f = open(file, 'r')
                 dict = json.loads(f.read())
                 print(json.dumps(dict, indent=4))
                 f.close()
-            else:
+            except:
                 sys.exit(f"Error in loading ${file}")
             return dict
 

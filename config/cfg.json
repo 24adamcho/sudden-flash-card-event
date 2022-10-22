@@ -1,6 +1,6 @@
 {
-    "statsFile": "C:/Users/Adam/Desktop/Scripts/Python/sudden-flash-card-event/src/config/stats.json",
-    "cardFile": "C:/Users/Adam/Desktop/Scripts/Python/sudden-flash-card-event/src/config/cards/default.json",
+    "statsFile": "C:/Users/Adam/Desktop/Scripts/Python/sudden-flash-card-event/config/stats.json",
+    "cardFile": "C:/Users/Adam/Desktop/Scripts/Python/sudden-flash-card-event/config/cards/default.json",
     "adaptiveCardPool": true,
     "timerSeconds": 300,
     "popupQuestionCount": 5,
