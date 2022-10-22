@@ -4,21 +4,22 @@ from tkinter import END, ttk
 from popup.QuizLogic import QuizLogic
 
 class PopupWindowFrame(tk.Frame):
-    def __init__(self, parent, card, count, splash):
+    def __init__(self, parent, card, count, splash, font):
         print("Frame")
         tk.Frame.__init__(self, parent)
         self.parent = parent
         self.__count__ = count
         self.__splash__ = splash
+        self.__font__ = font
         self.__widgets__(card)
         
     def __widgets__(self, card):
         print("frame widgets")
-        self.lbl_splash = ttk.Label(self, text=self.__splash__)
-        self.lbl_description = tk.Label(self, text=f"(Progress: {self.__count__})(Score:0)", fg='blue')
-        self.lbl_card = ttk.Label(self, text = card)
-        self.ent_guess = ttk.Entry(self)
-        self.lbl_answer = tk.Label(self) #TK ALLOWS FG/BG CONTROL, NOT TTK
+        self.lbl_splash = ttk.Label(self, text=self.__splash__, font=self.__font__)
+        self.lbl_description = tk.Label(self, text=f"(Progress: {self.__count__})(Score:0)", fg='blue', font=self.__font__)
+        self.lbl_card = ttk.Label(self, text = card, font=self.__font__)
+        self.ent_guess = ttk.Entry(self, font=self.__font__)
+        self.lbl_answer = tk.Label(self, font=self.__font__) #TK ALLOWS FG/BG CONTROL, NOT TTK
         #self.lbl_timer = ttk.Label(self)
 
         self.lbl_splash.pack()
@@ -55,7 +56,7 @@ class PopupWindowFrame(tk.Frame):
 class PopupWindow(tk.Tk):
     __quizCompleted__ = False
 
-    def __init__(self, ql, splash, options = {"windowSize": "350x100", "popupTimer": 300}):
+    def __init__(self, ql, splash, options = {"windowSize": "350x100", "popupTimer": 300, "font" : "arial", "fontSize" : 12}):
         print("Initializing window...")
         super().__init__()
 
@@ -75,7 +76,9 @@ class PopupWindow(tk.Tk):
             self, 
             self.__logic__.peekCard(),
             self.__logic__.progressStr(),
-            splash
+            splash,
+            (options["font"],
+            options["fontSize"])
             )
         self.frame.pack()
         #self.timerClock()

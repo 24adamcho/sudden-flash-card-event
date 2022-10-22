@@ -2,7 +2,7 @@ import popup.QuizLogic
 import popup.PopupWindow
 
 class Popup(object):
-    def __init__(self, cards, splash, options = {"windowSize": "350x100", "popupTimer": 60}):
+    def __init__(self, cards, splash, options = {"windowSize": "350x100", "popupTimer": 60, "font" : "arial", "fontSize" : 12}):
         self.__cards__ = cards
         self.__logic__ = popup.QuizLogic.QuizLogic(cards)
         self.__timer__ = options["popupTimer"]

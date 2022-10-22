@@ -42,6 +42,8 @@ The default configuration files are in `config/config.json`. Here are the config
 | `adaptiveTimerBonus`  | `300` (5 minutes)             | Bonus time to add if the previous quiz was perfectly done, in seconds
 | `randomCardInversion` | `true`                        | Randomly reverse cards
 | `snoozeTime`          | `300` (5 minutes)             | Unused
+| `font`                | `arial`                       | Font for popup text
+| `fontSize`            | `30`                          | Font size for popup text; make sure `windowSize` is large enough to display all of it!
 
 Some user statistics are available in `config/stats.json`:
 | Key                       | Default Value | Description   

@@ -1,14 +1,16 @@
 {
     "statsFile": "./config/stats.json",
-    "cardFile": "./config/cards/default.json",
+    "cardFile": "./config/cards/korean.json",
     "splashFile": "./config/splashes.json",
     "adaptiveCardPool": true,
     "timerSeconds": 900,
     "popupQuestionCount": 10,
-    "windowSize": "350x100",
+    "windowSize": "700x400",
     "popupTimer": 300,
     "adaptiveTimer": true,
     "adaptiveTimerBonus": 300,
-    "randomCardInversion": true,
-    "snoozeTime": 300
+    "randomCardInversion": false,
+    "snoozeTime": 300,
+    "font": "arial",
+    "fontSize": 30
 }
