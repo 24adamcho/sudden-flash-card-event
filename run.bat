@@ -1,1 +1,1 @@
-python ./src/main.py --config "./config/cfg.json"
+python ./src/main.pyw --config "./config/cfg.json"
