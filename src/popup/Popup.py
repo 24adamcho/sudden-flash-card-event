@@ -1,6 +1,3 @@
-import threading
-from time import sleep
-
 import popup.QuizLogic
 import popup.PopupWindow
 

@@ -1,5 +1,3 @@
-from datetime import datetime
-from datetime import timedelta
 import tkinter as tk
 from tkinter import END, ttk
 
