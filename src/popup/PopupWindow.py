@@ -15,7 +15,7 @@ class PopupWindowFrame(tk.Frame):
     def __widgets__(self, card):
         print("frame widgets")
         self.lbl_splash = ttk.Label(self, text=self.__splash__)
-        self.lbl_description = ttk.Label(self, text=f"(Progress: {self.__count__})(Score:0)")
+        self.lbl_description = tk.Label(self, text=f"(Progress: {self.__count__})(Score:0)", fg='blue')
         self.lbl_card = ttk.Label(self, text = card)
         self.ent_guess = ttk.Entry(self)
         self.lbl_answer = tk.Label(self) #TK ALLOWS FG/BG CONTROL, NOT TTK
@@ -60,7 +60,8 @@ class PopupWindow(tk.Tk):
         super().__init__()
 
         self.title("SUDDEN FLASH CARD EVENT")
-        self.geometry(options["windowSize"])
+        self.__windowSize__ = options["windowSize"]
+        self.geometry(self.__windowSize__)
 
         self.__logic__ = ql
         self.__time__ = options["popupTimer"]
@@ -117,13 +118,13 @@ class PopupWindow(tk.Tk):
         self.__top__.wm_deiconify()
 
     def __lockPosition__(self):
-        w = self.winfo_reqwidth()
-        h = self.winfo_reqheight()
+        w = self.winfo_width()
+        h = self.winfo_height()
         ws = self.winfo_screenwidth()
         hs = self.winfo_screenheight()
         x = (ws/2) - (w/2)
         y = (hs/2) - (h/2)
-        self.geometry('%dx%d+%d+%d' % (w, h, x, y))
+        self.geometry('%s+%d+%d' % (self.__windowSize__, x, y))
         self.after(1, self.__lockPosition__)
 
     __pauseTimer__ = False
