@@ -60,9 +60,7 @@ class PopupWindow(tk.Tk):
         super().__init__()
 
         self.title("SUDDEN FLASH CARD EVENT")
-        self.geometry(options["windowSize"]) #TODO add windowSize to cfg.json
-        self.attributes('-topmost',True)
-        self.resizable(False, False)
+        self.geometry(options["windowSize"])
 
         self.__logic__ = ql
         self.__time__ = options["popupTimer"]
@@ -80,6 +78,11 @@ class PopupWindow(tk.Tk):
             )
         self.frame.pack()
         #self.timerClock()
+
+        #cheese prevention measures
+        self.attributes('-topmost',True)
+        self.resizable(False, False)
+        self.__lockPosition__()
         print("Window initialized")
     
     __flipflop__ = True
@@ -112,6 +115,16 @@ class PopupWindow(tk.Tk):
 
     def __onUnmap__(self, event):
         self.__top__.wm_deiconify()
+
+    def __lockPosition__(self):
+        w = self.winfo_reqwidth()
+        h = self.winfo_reqheight()
+        ws = self.winfo_screenwidth()
+        hs = self.winfo_screenheight()
+        x = (ws/2) - (w/2)
+        y = (hs/2) - (h/2)
+        self.geometry('%dx%d+%d+%d' % (w, h, x, y))
+        self.after(1, self.__lockPosition__)
 
     __pauseTimer__ = False
     def timerClock(self):
