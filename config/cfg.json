@@ -5,12 +5,12 @@
     "adaptiveCardPool": true,
     "timerSeconds": 900,
     "popupQuestionCount": 10,
-    "windowSize": "700x400",
+    "windowSize": "500x200",
     "popupTimer": 300,
     "adaptiveTimer": true,
     "adaptiveTimerBonus": 300,
     "randomCardInversion": false,
     "snoozeTime": 300,
-    "font": "arial",
-    "fontSize": 30
+    "font": "gulim",
+    "fontSize": 18
 }
