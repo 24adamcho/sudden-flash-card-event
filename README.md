@@ -34,14 +34,14 @@ The default configuration files are in `config/config.json`. Here are the config
 | `cardFile`            | `./config/cards/default.json` | Directory for the card pack to use 
 | `splashFile`          | `./config/splashes.json`      | Directory of taunting messages     
 | `adaptiveCardPool`    | `true`                        | Changes the card pool size based on stat performance. If false, the entire card pool will be used.
-| `timerSeconds`        | `900`                         | Time between popups
+| `timerSeconds`        | `900` (15 minutes)            | Time between popups, in seconds
 | `popupQuestionCount`  | `10`                          | Questions in each popup quiz
 | `windowSize`          | `350x100`                     | Size of popup window
-| `popupTimer`          | `300`                         | Unused
+| `popupTimer`          | `300` (5 minutes)             | Unused
 | `adaptiveTimer`       | `true`                        | Whether or not to change time between popups based on previous quiz performance. If false, no bonus will be added.
-| `adaptiveTimerBonus`  | `300`                         | Bonus time to add if the previous quiz was perfectly done
+| `adaptiveTimerBonus`  | `300` (5 minutes)             | Bonus time to add if the previous quiz was perfectly done, in seconds
 | `randomCardInversion` | `true`                        | Randomly reverse cards
-| `snoozeTime`          | `300`                         | Unused
+| `snoozeTime`          | `300` (5 minutes)             | Unused
 
 Some user statistics are available in `config/stats.json`:
 | Key                       | Default Value | Description   
