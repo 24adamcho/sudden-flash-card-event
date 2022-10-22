@@ -27,6 +27,8 @@ class PopupWindowFrame(tk.Frame):
         self.ent_guess.pack()
         self.lbl_answer.pack()
         #self.lbl_timer.pack()
+
+        self.ent_guess.focus_set()
         print("frame widgets packed")
 
     def getEntryText(self):
