@@ -1,0 +1,1 @@
+python ./src/main.py --config "C:/Users/Adam/Desktop/Scripts/Python/sudden-flash-card-event/config/cfg.json"
