@@ -1,1 +1,1 @@
-pythonw ./src/main.pyw --config "./config/cfg.json"
+start "Sudden Flash Card Event" pythonw ./src/main.pyw --config "./config/cfg.json"

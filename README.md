@@ -1,19 +1,57 @@
 # Sudden Flash Card Event
 
 ## Description 
-Sudden Flash Card Event is a language study tool that interrupts whatever the user is doing and displays a popup.
+Sudden Flash Card Event is a language study tool that interrupts whatever the user is doing and displays a popup quiz of random flashcards.
 
 ## Installation
-
+This program is built for python 3.10.4 on Windows. 
+This program also uses the library [infi.systray]("https://github.com/Infinidat/infi.systray"). Install it with:
+```
+pip install infi.systray
+```
+or run 
+```
+make setup
+```
 
 ## Usage
+To run, use `run.bat`:
+```batch
+start "Sudden Flash Card Event" pythonw ./src/main.pyw --config "./config/cfg.json"
+```
+or
+```
+make run
+```
+You cannot kill the quiz window. There is no escape for you.
 
+#### Configuration
 
-## Roadmap
+The default configuration files are in `config/config.json`. Here are the configuration settings:
+| Key                   | Default Value                 | Description                        
+| --------------------- | ---------------------         | ---------------------------------- 
+| `statsFile`           | `./config/stats.json`         | Directory to the stats file to use 
+| `cardFile`            | `./config/cards/default.json` | Directory for the card pack to use 
+| `splashFile`          | `./config/splashes.json`      | Directory of taunting messages     
+| `adaptiveCardPool`    | `true`                        | Changes the card pool size based on stat performance. If false, the entire card pool will be used.
+| `timerSeconds`        | `900`                         | Time between popups
+| `popupQuestionCount`  | `10`                          | Questions in each popup quiz
+| `windowSize`          | `350x100`                     | Size of popup window
+| `popupTimer`          | `300`                         | Unused
+| `adaptiveTimer`       | `true`                        | Whether or not to change time between popups based on previous quiz performance. If false, no bonus will be added.
+| `adaptiveTimerBonus`  | `300`                         | Bonus time to add if the previous quiz was perfectly done
+| `randomCardInversion` | `true`                        | Randomly reverse cards
+| `snoozeTime`          | `300`                         | Unused
 
+Some user statistics are available in `config/stats.json`:
+| Key                       | Default Value | Description   
+| ------------------------- | ------------- | -----------
+| `adaptiveCardPoolSize`    | `5`           | Max index of adaptive card pool, if `adaptiveCardPool` is set to true. Not recommended to go too far below `popupQuestionCount`, or there will be a large amount of repeated cards
+| `score`                   | `0`           | Compounding value of how many questions the user has gotten right. Vanity value.
 
-## License
+`config/splashes.json` is a list of taunting messages. Please put whatever you want to insult yourself with in there.
 
-
-## Project status
-
+`config/cards/default.json` shows an example of how to build a flash card pack, formatted like so:
+| Key       | Value 
+| --------- | -----------
+| card face | card answer
