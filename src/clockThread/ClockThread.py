@@ -43,14 +43,13 @@ class ClockThread(threading.Thread):
                     questionCount = len(adaptedpool)
 
                 pool = random.sample(adaptedpool, k=questionCount)
-                for i in range(len(pool)):
-                    if self.__config__["randomCardInversion"]: #invert if config toggled
-                        if random.getrandbits(1):
-                            pool[i] = (pool[i][0], pool[i][1])
-                        else:
-                            pool[i] = (pool[i][1], pool[i][0]) #invert tuple access
-                    else:
-                        pool[i] = (pool[i][0], pool[i][1])
+                
+                if self.__config__["randomCardInversion"]: #invert if config toggled
+                    for i in range(len(pool)):
+                            if random.getrandbits(1):
+                                pool[i] = (pool[i][0], pool[i][1])
+                            else:
+                                pool[i] = (pool[i][1], pool[i][0]) #invert tuple access
                 
                 eligableForUpgrade = False
                 if self.__config__["adaptiveCardPool"] and pool[len(pool) - 1] == adaptedpool[cardMaxCount - 1]:
