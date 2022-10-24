@@ -38,8 +38,11 @@ class ClockThread(threading.Thread):
                     cardMaxCount = len(self.__cards__)
                 
                 adaptedpool = list(self.__cards__.items())[:cardMaxCount] ##subset of cards below cardMaxCount
+                questionCount = self.__config__["popupQuestionCount"]
+                if len(adaptedpool) < questionCount:
+                    questionCount = len(adaptedpool)
 
-                pool = random.choices(adaptedpool, k=self.__config__["popupQuestionCount"])
+                pool = random.sample(adaptedpool, k=questionCount)
                 for i in range(len(pool)):
                     if self.__config__["randomCardInversion"]: #invert if config toggled
                         if random.getrandbits(1):
