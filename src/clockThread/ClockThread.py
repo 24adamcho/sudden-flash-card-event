@@ -50,7 +50,7 @@ class ClockThread(threading.Thread):
                         pool[i] = (pool[i][0], pool[i][1])
                 
                 eligableForUpgrade = False
-                if self.__config__["adaptiveCardPool"] and pool[len(pool)] == adaptedpool[cardMaxCount]:
+                if self.__config__["adaptiveCardPool"] and pool[len(pool) - 1] == adaptedpool[cardMaxCount - 1]:
                     eligableForUpgrade = True
 
                 #for i in range(self.__config__["popupQuestionCount"]): #select a few random cards
