@@ -48,6 +48,10 @@ class ClockThread(threading.Thread):
                             pool[i] = (pool[i][1], pool[i][0]) #invert tuple access
                     else:
                         pool[i] = (pool[i][0], pool[i][1])
+                
+                eligableForUpgrade = False
+                if self.__config__["adaptiveCardPool"] and pool[len(pool)] == adaptedpool[cardMaxCount]:
+                    eligableForUpgrade = True
 
                 #for i in range(self.__config__["popupQuestionCount"]): #select a few random cards
                 #    k = random.choice(adaptedpool)
@@ -69,7 +73,8 @@ class ClockThread(threading.Thread):
                 results = p.results()
                 self.__stats__["score"] += results[0]
                 if results[1]: ##if FC
-                    self.__stats__["adaptiveCardPoolSize"] += 1
+                    if eligableForUpgrade:
+                        self.__stats__["adaptiveCardPoolSize"] += 1
                     if self.__config__["adaptiveTimer"]:
                         waitTime = self.__period__ + self.__config__["adaptiveTimerBonus"]
                 else:
