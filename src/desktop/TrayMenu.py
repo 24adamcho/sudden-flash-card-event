@@ -76,6 +76,7 @@ class TrayMenu(object):
 
     def refreshClock(self, systray):
         self.__clockThread__.stop()
+        self.saveStats()
         self.__clockThread__ = self.__loadClockThread__()
         self.__clockThread__.start()
         pass
@@ -87,6 +88,7 @@ class TrayMenu(object):
     def __onQuitCallback__(self, systray):
         self.__clockThread__.stop()
         self.__clockThread__.join()
+        self.saveStats()
 
     def saveStats(self):
         #save stats to file
