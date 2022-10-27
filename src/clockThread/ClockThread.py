@@ -43,28 +43,18 @@ class ClockThread(threading.Thread):
                     questionCount = len(adaptedpool)
 
                 pool = random.sample(adaptedpool, k=questionCount)
-                
+
+                ## adaptive pool increase eligable if the latest card is in the question pool
+                eligableForUpgrade = False
+                if self.__config__["adaptiveCardPool"] and pool.count(adaptedpool[cardMaxCount - 1]) > 0:
+                    eligableForUpgrade = True
+
                 if self.__config__["randomCardInversion"]: #invert if config toggled
                     for i in range(len(pool)):
                             if random.getrandbits(1):
                                 pool[i] = (pool[i][0], pool[i][1])
                             else:
                                 pool[i] = (pool[i][1], pool[i][0]) #invert tuple access
-                
-                eligableForUpgrade = False
-                if self.__config__["adaptiveCardPool"] and pool.count(adaptedpool[cardMaxCount - 1]) > 0:
-                    eligableForUpgrade = True
-
-                #for i in range(self.__config__["popupQuestionCount"]): #select a few random cards
-                #    k = random.choice(adaptedpool)
-                #    if self.__config__["randomCardInversion"]: #invert if config toggled
-                #        if random.getrandbits(1):
-                #            pool.append((k[0], k[1]))
-                #        else:
-                #            pool.append((k[1], k[0])) #invert tuple access
-                #    else:
-                #        pool.append((k[0], k[1]))
-                random.shuffle(pool)
 
                 splash = random.choice(self.__splashes__)
 
@@ -75,6 +65,7 @@ class ClockThread(threading.Thread):
                 results = p.results()
                 self.__stats__["score"] += results[0]
                 if results[1]: ##if FC
+                    self.__stats__["fc"] += 1
                     if eligableForUpgrade:
                         self.__stats__["adaptiveCardPoolSize"] += 1
                     if self.__config__["adaptiveTimer"]:
