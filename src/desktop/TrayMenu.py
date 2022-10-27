@@ -1,5 +1,6 @@
 import json
 import sys
+from time import sleep
 from infi.systray import SysTrayIcon
 
 from clockThread.ClockThread import ClockThread
@@ -70,6 +71,7 @@ class TrayMenu(object):
     def refreshClock(self, systray):
         self.__clockThread__.stop()
         self.saveStats()
+        sleep(2) #crash occured once where it would save then load too fast and windows killed the process, this hopefully fixes that
         self.__clockThread__ = self.__loadClockThread__()
         self.__clockThread__.start()
         pass
