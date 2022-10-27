@@ -75,6 +75,7 @@ class ClockThread(threading.Thread):
                 results = p.results()
                 self.__stats__["score"] += results[0]
                 if results[1]: ##if FC
+                    self.__stats__["fc"] += 1
                     if eligableForUpgrade:
                         self.__stats__["adaptiveCardPoolSize"] += 1
                     if self.__config__["adaptiveTimer"]:

@@ -48,6 +48,7 @@ Some user statistics are available in `config/stats.json`:
 | ------------------------- | ------------- | -----------
 | `adaptiveCardPoolSize`    | `5`           | Max index of adaptive card pool, if `adaptiveCardPool` is set to true. Not recommended to go too far below `popupQuestionCount`, or there will be a large amount of repeated cards
 | `score`                   | `0`           | Compounding value of how many questions the user has gotten right. Vanity value.
+| `fc`                   | `0`           | Compounding value of how many quizzes the user has gotten perfect. Vanity value.
 
 `config/splashes.json` is a list of taunting messages. Please put whatever you want to insult yourself with in there.
 
