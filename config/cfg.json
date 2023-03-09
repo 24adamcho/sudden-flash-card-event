@@ -1,6 +1,6 @@
 {
     "statsFile": "./config/stats.json",
-    "cardFile": "./config/cards/korean.json",
+    "cardFile": "./config/cards/default.json",
     "splashFile": "./config/splashes.json",
     "adaptiveCardPool": true,
     "timerSeconds": 900,
