@@ -2,6 +2,7 @@
 
 ## Description 
 Sudden Flash Card Event is a language study tool that interrupts whatever the user is doing and displays a popup quiz of random flashcards.
+It is also designed to be very difficult to close or otherwise ignore the popup, so it is highly recommended to not start the program on something important. It can, however, be terminated from system tray, but there must be no active popup running.
 
 ## Installation
 This program is built for python 3.10.4 on Windows. 
