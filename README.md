@@ -23,7 +23,6 @@ or
 ```
 make run
 ```
-You cannot kill the quiz window. There is no escape for you.
 
 #### Configuration
 
@@ -52,7 +51,7 @@ Some user statistics are available in `config/stats.json`:
 | `score`                   | `0`           | Compounding value of how many questions the user has gotten right. Vanity value.
 | `fc`                   | `0`           | Compounding value of how many quizzes the user has gotten perfect. Vanity value.
 
-`config/splashes.json` is a list of taunting messages. Please put whatever you want to insult yourself with in there.
+`config/splashes.json` is a list of taunting messages that are displayed on the popup.
 
 `config/cards/default.json` shows an example of how to build a flash card pack, formatted like so:
 | Key       | Value 
