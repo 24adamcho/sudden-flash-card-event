@@ -1,5 +1,7 @@
+import codecs
 import json
 import sys
+import atexit
 from time import sleep
 from infi.systray import SysTrayIcon
 
@@ -23,6 +25,7 @@ class TrayMenu(object):
             on_quit=self.__onQuitCallback__
         )
 
+        atexit.register(self.saveStats)
         self.__clockThread__.start()
         self.systray.start()
         print("tray opened.")
@@ -46,9 +49,13 @@ class TrayMenu(object):
         def loadJson(file):
             #check if files exist. if not, throw an error popup and terminate operation
             try:
-                f = open(file, 'r')
-                dict = json.loads(f.read())
-                print(json.dumps(dict, indent=4))
+                print("attempting to open file")
+                f = codecs.open(file, mode='r', encoding='utf-8')
+                print("converting file to json")
+                dict = json.loads(f.read().encode('utf-8'))
+                print("dumped!")
+                print(json.dumps(dict, indent=4, ensure_ascii=False))
+                print("closing file...")
                 f.close()
             except:
                 sys.exit(f"Error in loading ${file}")
