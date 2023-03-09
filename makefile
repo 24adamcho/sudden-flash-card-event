@@ -1,5 +1,5 @@
 run:
-	run.bat
+	start "Sudden Flash Card Event" pythonw ./src/main.pyw --config "./config/cfg.json"
 
 setup: requirements.txt
 	pip install -r requirements.txt
