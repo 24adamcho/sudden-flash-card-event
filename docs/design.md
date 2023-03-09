@@ -21,8 +21,6 @@ After opening the startup script (either by user or by os boot task), a desktop 
 The desktop app is used to interact with the clock thread in a user-friendly way. Some of the interractions it can perform are:
 - Stop the whole program
 - Update the thread with a new flash card pack file
-- Open file directory to configuration files
-- Snooze the thread for a period of time
 
 ### Clock Thread
 ```mermaid
