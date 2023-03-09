@@ -17,14 +17,14 @@ flowchart LR
 
 After opening the startup script (either by user or by os boot task), a desktop app is opened, minimized to system tray, and a clock thread is started as a subthread of the app. When the clock thread triggers, it opens up a popup window that the user must interract with to close.
 
-##### Desktop App
+### Desktop App
 The desktop app is used to interact with the clock thread in a user-friendly way. Some of the interractions it can perform are:
 - Stop the whole program
 - Update the thread with a new flash card pack file
 - Open file directory to configuration files
 - Snooze the thread for a period of time
 
-##### Clock Thread
+### Clock Thread
 ```mermaid
 flowchart LR
     clock((Clock))
@@ -40,7 +40,7 @@ flowchart LR
 
 The clock thread is a subthread that opens a popup whenever an internal timer triggers. The timer is set by either the desktop app or by previous user score on the popup (setting changed by cfg). It can also be reloaded with a different flash card pack file to send to the popup.
 
-##### Popup
+### Popup
 ```mermaid
 flowchart LR
     subgraph ClockThread
